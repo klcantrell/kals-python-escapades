@@ -29,3 +29,19 @@ print(f'Hello, his name is {name}')
 name = "Sam"
 age = 3
 print(f'Hello, {name} is {age} years old')
+
+# lists
+
+my_list = [1, 2, 3]
+my_list.append(7)
+popped_item = my_list.pop()
+other_popped_item = my_list.pop(0)
+print('popped item', popped_item)
+print('other popped item', other_popped_item)
+print('original list (mutated)', my_list)
+letters_list = ['a', 'e', 'i', 'z', 'b']
+num_list = [4, 87, 1, 5, 7, 8]
+letters_list.sort()
+print('sorted list in place', letters_list)
+num_list.reverse()
+print('num list reversed (mutated)', num_list)
