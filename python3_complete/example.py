@@ -86,3 +86,24 @@ print(type(True))
 print(type(False))
 print(1 > 2)
 placeholder_b = None
+
+# file input and output
+
+myfile = open('test.txt')
+myfile_contents = myfile.read()
+print(myfile_contents)
+myfile.seek(0)
+print(myfile.readlines())
+myfile.close()
+myfile_absolutepath = open('/Users/jordan/Desktop/dev/kals-python-escapades/python3_complete/test.txt')
+print('absolute path readlines', myfile_absolutepath.readlines())
+myfile_absolutepath.close()
+with open('test.txt', mode='r') as myfile_usingwith:
+  contents = myfile_usingwith.readlines()
+  print('myfile using "with"', contents)
+with open('fileToBeOverwritten.txt', mode='a') as f:
+  f.write('/NFOURONFOURTH')
+with open('oiuasodiuoasduoia.txt', mode='w') as f:
+  f.write('I CREATED THIS FILE')
+with open('oiuasodiuoasduoia.txt', mode='r') as f:
+  print(f.read())
