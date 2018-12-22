@@ -45,3 +45,14 @@ letters_list.sort()
 print('sorted list in place', letters_list)
 num_list.reverse()
 print('num list reversed (mutated)', num_list)
+
+# dictionaries
+
+prices_lookup = {'apple': 2.99, 'oranges': 1.99, 'milk': 5.80}
+print(prices_lookup['apple'])
+prices_lookup['bread'] = 3.75
+prices_lookup['apple'] = 3.20
+print(prices_lookup)
+print('dict keys', prices_lookup.keys())
+print('dict values', prices_lookup.values())
+print('dict items', prices_lookup.items())
