@@ -56,3 +56,33 @@ print(prices_lookup)
 print('dict keys', prices_lookup.keys())
 print('dict values', prices_lookup.values())
 print('dict items', prices_lookup.items())
+
+# tuples
+
+t = (1, 2, 3, 3)
+l = [1, 2, 3]
+print(type(t))
+print(type(l))
+print(t[-2])
+print('typle count method', t.count(3))
+print('typle index method', t.index(3))
+# t[0] = '1' # does not support item reassignment
+
+# sets
+
+myset = set()
+myset.add(1)
+print(myset)
+myset.add(2)
+print(myset)
+myset.add(2)
+print(myset) # no dupes
+lists_with_dupes = [1,1,1,2,2,3,4,5,6,6,6]
+print(set(lists_with_dupes)) # removes dupes
+
+# booleans
+
+print(type(True))
+print(type(False))
+print(1 > 2)
+placeholder_b = None
