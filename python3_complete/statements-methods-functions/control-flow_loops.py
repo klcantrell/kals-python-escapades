@@ -57,3 +57,53 @@ for num in array_2:
         print('breaking out of iterating through array_2')
         break
     print(num)
+
+# useful operators
+
+# range
+print('using range')
+for num in range(3, 10):  # third arg is step size
+    print(num)
+
+# enumerate
+# without
+index_count = 0
+my_word = 'abcde'
+for letter in my_word:
+    print('At index {} the letter is {}'.format(index_count, letter))
+    index_count += 1
+# with
+print('with enumerate')
+for index, letter in enumerate(my_word):
+    print('At index {} the letter is {}'.format(index, letter))
+
+# zip
+mylist1 = [1, 2, 3]
+mylist2 = ['a', 'b', 'c']
+mylist3 = [100, 200, 300, 400]  # zip stops at shortest list
+
+for item in zip(mylist1, mylist2):
+    print(item)
+print('list cast zip of arrays', list(zip(mylist1, mylist2, mylist3)))
+
+# in operator
+dict_for_in_example = {'mykey': 345}
+print('x' in ['x', 'y', 'z'])
+print('mykey' in dict_for_in_example)
+print(345 in dict_for_in_example.values())
+
+# min and max
+list_with_numbers = [59, 12, 1, 4]
+print(min(list_with_numbers))
+print(max(list_with_numbers))
+
+# random
+from random import shuffle, randint
+ordered_list = [1, 2, 3, 4, 5, 6]
+shuffle(ordered_list)
+print(ordered_list)
+print(randint(0, 20))
+
+# user input
+result = input('Enter a number: ')
+print(result)
