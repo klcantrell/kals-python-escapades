@@ -45,6 +45,8 @@ letters_list.sort()
 print('sorted list in place', letters_list)
 num_list.reverse()
 print('num list reversed (mutated)', num_list)
+my_other_list = [0] * 3
+print('my_other_list', my_other_list)
 
 # dictionaries
 
@@ -95,7 +97,7 @@ print(myfile_contents)
 myfile.seek(0)
 print(myfile.readlines())
 myfile.close()
-myfile_absolutepath = open('/Users/jordan/Desktop/dev/kals-python-escapades/python3_complete/test.txt')
+myfile_absolutepath = open('/Users/jordan/Desktop/dev/kals-python-escapades/python3_complete/basics/test.txt')
 print('absolute path readlines', myfile_absolutepath.readlines())
 myfile_absolutepath.close()
 with open('test.txt', mode='r') as myfile_usingwith:
@@ -107,3 +109,13 @@ with open('oiuasodiuoasduoia.txt', mode='w') as f:
   f.write('I CREATED THIS FILE')
 with open('oiuasodiuoasduoia.txt', mode='r') as f:
   print(f.read())
+
+  # comparison & logical operators
+
+print('2 == 2', 2 == 2)
+print('"2" == 2', '2' == 2)
+print ('1 < 2', 1 < 2)
+print('1 != "1"', 1 != '1')
+print('1 < 2 and 2 < 3', 1 < 2 and 2 < 3)
+print('1 > 2 and 2 < 3', 1 > 2 or 2 < 3)
+print('not 1 == 1', not 1 == 1)
