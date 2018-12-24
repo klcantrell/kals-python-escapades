@@ -1,5 +1,6 @@
 # control flow statements
 
+from random import shuffle, randint
 hungry = False
 
 if hungry:
@@ -66,13 +67,13 @@ for num in range(3, 10):  # third arg is step size
     print(num)
 
 # enumerate
-# without
+    # without
 index_count = 0
 my_word = 'abcde'
 for letter in my_word:
     print('At index {} the letter is {}'.format(index_count, letter))
     index_count += 1
-# with
+    # with
 print('with enumerate')
 for index, letter in enumerate(my_word):
     print('At index {} the letter is {}'.format(index, letter))
@@ -98,7 +99,6 @@ print(min(list_with_numbers))
 print(max(list_with_numbers))
 
 # random
-from random import shuffle, randint
 ordered_list = [1, 2, 3, 4, 5, 6]
 shuffle(ordered_list)
 print(ordered_list)
@@ -107,3 +107,33 @@ print(randint(0, 20))
 # user input
 result = input('Enter a number: ')
 print(result)
+
+# list comprehension
+
+first_name = 'Kalalau'
+my_list_using_comprehension = [letter for letter in first_name]
+print(my_list_using_comprehension)
+
+my_list_of_numbers = [num**2 for num in range(0, 11)]
+print('list comprehension with range', my_list_of_numbers)
+
+my_list_of_numbers_with_condition = [
+    num for num in range(0, 11) if num % 2 == 0]
+print('list comprehension with condition', my_list_of_numbers_with_condition)
+
+
+celsius = [0, 10, 20, 34.5]
+my_list_of_numbers_with_complex_expression = [
+    ((9/5)*temp + 32) for temp in celsius]
+print('list comprehension with complex expression',
+      my_list_of_numbers_with_complex_expression)
+
+my_list_of_numbers_with_complex_condition = [
+    x if x % 2 == 0 else 'ODD' for x in range(0, 11)]
+print('list comprehension with complex condition',
+      my_list_of_numbers_with_complex_condition)
+
+my_list_of_numbers_with_nested_loops = [
+    x*y for x in [2, 4, 6] for y in [1, 10, 1000]]
+print('list comprehension with complex condition',
+      my_list_of_numbers_with_nested_loops)
