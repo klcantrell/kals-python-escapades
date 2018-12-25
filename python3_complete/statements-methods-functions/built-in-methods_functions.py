@@ -60,3 +60,32 @@ def pig_latin(word):
 
 
 print(pig_latin('Apple'))
+
+# *args and *kwargs
+
+
+def sum_func(*args):  # pass in as many args.  gets turned into tuple.
+    return sum(args) * 0.5
+
+
+print(sum_func(1, 2, 3, 4, 5))
+
+
+def func_for_kwargs(**kwargs):  # kwargs is dict of parameters and values
+    if 'fruit' in kwargs:
+        print('My favorite fruit is {}'.format(kwargs['fruit']))
+    else:
+        print('No fruit here')
+
+
+func_for_kwargs(fruit='Banana')
+
+
+def args_and_kwargs(*args, **kwargs):  # order matters and can't mix
+    print('args are', args)
+    print('kwargs are', kwargs)
+    print('I would like {arg} {kwarg}'.format(
+        arg=args[0], kwarg=kwargs['food']))
+
+
+args_and_kwargs(10, 20, 30, fruit='orange', food='eggs')
