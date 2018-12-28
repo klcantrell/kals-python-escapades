@@ -137,3 +137,18 @@ lambda num: num ** 2
 print(list(map(lambda num: num ** 2, my_nums)))
 
 print(list(map(lambda name: name[::-1], my_names)))
+
+# nested scopes
+# # LEGB rule (local, enclosing function locals, global, built-in)
+
+my_x = 50
+
+
+def func_for_global():
+    global my_x
+    print(f'my_x is {my_x}')
+    my_x = 'NEW VALUE'
+    print(f'I just locally changed the global my_x to {my_x}')
+
+
+func_for_global()
