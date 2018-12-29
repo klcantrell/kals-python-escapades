@@ -1,4 +1,7 @@
+from collections import Counter
+
 # exploring built-in methods
+
 
 mylist = [1, 2, 3]
 
@@ -152,3 +155,21 @@ def func_for_global():
 
 
 func_for_global()
+
+# homework
+
+
+def up_low(s):
+    c = Counter()
+    for char in s:
+        if char.isupper():
+            c['uppers'] += 1
+        if char.islower():
+            c['lowers'] += 1
+    return (f"Original String: {s}\n"
+            f"No. of Upper case characters: {c['uppers']}\n"
+            f"No. of Lower case characters: {c['lowers']}\n")
+
+
+up_low_output = up_low('Hello Mr. Rogers, how are you this fine Tuesday?')
+print(up_low_output)
