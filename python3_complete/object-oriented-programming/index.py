@@ -151,3 +151,29 @@ print(my_little_human.speak())
 
 my_big_human = BigHuman('Dada')
 print(my_big_human.speak())
+
+# special methods
+
+
+class Book():
+
+    def __init__(self, title, author, pages):
+        self.title = title
+        self.author = author
+        self.pages = pages
+
+    def __str__(self):  # magic or "dunder" method that allows print to work with this object
+        return '{self.title} by {self.author}'.format(self=self)
+
+    def __len__(self):  # another magic method for len
+        return self.pages
+
+    def __del__(self):  # magic method for del
+        print('A book has been deleted')
+
+
+my_book = Book('Final Fantasy is awesome', 'Kalalau', 2)
+
+print(my_book)
+print(len(my_book))
+del my_book
