@@ -1,17 +1,30 @@
-from Deck import suits, ranks, values
-from Card import card
+import random
+
+from .constants import SUITS, RANKS, VALUES
+from Card import Card
 
 
-class Deck():
+class Deck:
     def __init__(self):
         self.deck = []
-        for suit in suits:
-            for rank in ranks:
-                value = values[rank]
-                self.deck.append(card.Card(suit=suit, rank=rank, value=value))
+        for suit in SUITS:
+            for rank in RANKS:
+                value = VALUES[rank]
+                self.deck.append(Card(
+                    suit=suit, rank=rank, value=value))
+        self.shuffle()
+
+    def shuffle(self):
+        random.shuffle(self.deck)
+
+    def deal(self):
+        return self.deck.pop()
 
     def __str__(self):
         cards = []
         for card in self.deck:
             cards.append(str(card))
         return str(cards)
+
+    def __len__(self):
+        return len(self.deck)
