@@ -15,6 +15,12 @@ class Player:
     def has_busted(self):
         return self.hand.get_value() > 21
 
+    def has_high_aces(self):
+        return self.hand.get_high_aces() > 0
+
+    def adjust_for_ace(self):
+        self.hand.adjust_for_ace()
+
     def show_some(self):
         last_card = self.hand.get_cards()[-1]
         print(f"\n{self.name}'s Card")

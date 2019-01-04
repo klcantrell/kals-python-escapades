@@ -10,6 +10,9 @@ class Hand:
     def get_cards(self):
         return self.cards
 
+    def get_high_aces(self):
+        return self.high_aces
+
     def add_card(self, card):
         self.cards.append(card)
         self.value += card.value
@@ -19,4 +22,4 @@ class Hand:
     def adjust_for_ace(self):
         if self.high_aces > 0:
             self.high_aces -= 1
-            self.value -= 11
+            self.value -= 10

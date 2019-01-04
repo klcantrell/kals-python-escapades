@@ -32,15 +32,25 @@ class Game:
                     player_turn = False
                     break
                 if self.player.has_busted():
-                    self.dealer_win()
-                    player_turn = False
+                    while self.player.has_high_aces():
+                        self.player.adjust_for_ace()
+                        if self.player.get_score() <= 21:
+                            break
+                    else:
+                        self.dealer_win()
+                        player_turn = False
 
             while not dealer_limit_reached and self.game_on:
                 if self.dealer.should_hit():
                     self.dealer.take_card(card=self.deck.deal())
                 elif self.dealer.has_busted():
-                    self.player_win()
-                    dealer_limit_reached = True
+                    while self.dealer.has_high_aces():
+                        self.dealer.adjust_for_ace()
+                        if self.dealer.get_score() <= 21:
+                            break
+                    else:
+                        self.player_win()
+                        dealer_limit_reached = True
                 else:
                     dealer_limit_reached = True
                     break
@@ -66,15 +76,21 @@ class Game:
     def player_win(self):
         self.game_on = False
         print('\n****************\n')
+        print('Final Hands:\n')
+        self.dealer.show_all()
+        self.player.show_all()
         print('Final Scores:\n')
-        print(f'Dealer: {self.dealer.get_score()}\n')
+        print(f'Dealer: {self.dealer.get_score()}')
         print(f'Player: {self.player.get_score()}\n')
         print('Player has won!\n')
 
     def dealer_win(self):
         self.game_on = False
         print('\n****************\n')
+        print('Final Hands:\n')
+        self.dealer.show_all()
+        self.player.show_all()
         print('Final Scores:\n')
-        print(f'Dealer: {self.dealer.get_score()}\n')
+        print(f'Dealer: {self.dealer.get_score()}')
         print(f'Player: {self.player.get_score()}\n')
         print('Dealer has won!\n')
