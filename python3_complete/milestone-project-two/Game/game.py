@@ -14,16 +14,21 @@ class Game:
         player_turn = True
         dealer_limit_reached = False
 
-        self.deck.shuffle()
-        for _i in range(2):
-            self.player.take_card(card=self.deck.deal())
-            self.dealer.take_card(card=self.deck.deal())
-        self.player.show_all()
-        self.dealer.show_some()
+        if self.will_player_play():
+            self.ask_for_buy_in()
+            self.ask_for_bet()
+        else:
+            self.game_on = False
 
-        while self.game_on:
+        if self.game_on:
+            self.deck.shuffle()
+            for _i in range(2):
+                self.player.take_card(card=self.deck.deal())
+                self.dealer.take_card(card=self.deck.deal())
+            self.player.show_all()
+            self.dealer.show_some()
             while player_turn:
-                player_wants_hit = self.hit_or_stay()
+                player_wants_hit = self.will_player_hit()
                 if player_wants_hit:
                     self.player.take_card(card=self.deck.deal())
                     self.dealer.show_some()
@@ -39,8 +44,8 @@ class Game:
                     else:
                         self.dealer_win()
                         player_turn = False
-
-            while not dealer_limit_reached and self.game_on:
+        if self.game_on:
+            while not dealer_limit_reached:
                 if self.dealer.should_hit():
                     self.dealer.take_card(card=self.deck.deal())
                 elif self.dealer.has_busted():
@@ -55,25 +60,63 @@ class Game:
                     dealer_limit_reached = True
                     break
 
-            if self.game_on:
-                player_score = self.player.get_score()
-                dealer_score = self.dealer.get_score()
-                if player_score > dealer_score:
-                    self.player_win()
-                else:
-                    self.dealer_win()
+        if self.game_on:
+            player_score = self.player.get_score()
+            dealer_score = self.dealer.get_score()
+            if player_score > dealer_score:
+                self.player_win()
+            else:
+                self.dealer_win()
+        print('Thanks for playing!\n')
 
-    def hit_or_stay(self):
+    def will_player_play(self):
         valid_choice = False
+        print("\nYou've got to pay to play\n")
         while not valid_choice:
-            choice = input('Would you like to hit? (y or n)  \n')
+            choice = input('Are you buying in? (y or n)  ')
             if choice != 'y' and choice != 'n':
-                print('Please enter either "y" or "n"\n')
+                print('\nPlease enter either "y" or "n"\n')
             else:
                 valid_choice = True
         return True if choice == 'y' else False
 
-    def player_win(self):
+    def ask_for_buy_in(self):
+        valid_choice = False
+        while not valid_choice:
+            try:
+                buy_in = int(input("\nWhat's your buy in?  "))
+                self.player.buy_in(buy_in)
+                valid_choice = True
+            except:
+                print('\nYou must provide a number')
+
+    def ask_for_bet(self):
+        valid_choice = False
+        while not valid_choice:
+            try:
+                bet = int(input("\nWhat's your bet?  "))
+                self.player.place_bet(bet)
+                if self.player.is_bet_valid():
+                    valid_choice = True
+                else:
+                    print("\nThat's not a valid bet.")
+                    print("Bets cannot be more than you can cover and cannot be 0.")
+                    self.player.reset_bet()
+            except:
+                print('\nYou must provide a number')
+
+    def will_player_hit(self):
+        valid_choice = False
+        while not valid_choice:
+            choice = input('Would you like to hit? (y or n)  ')
+            if choice != 'y' and choice != 'n':
+                print('\nPlease enter either "y" or "n"\n')
+            else:
+                print('\n')
+                valid_choice = True
+        return True if choice == 'y' else False
+
+    def declare_winner(self, winner):
         self.game_on = False
         print('\n****************\n')
         print('Final Hands:\n')
@@ -82,15 +125,12 @@ class Game:
         print('Final Scores:\n')
         print(f'Dealer: {self.dealer.get_score()}')
         print(f'Player: {self.player.get_score()}\n')
-        print('Player has won!\n')
+        print(f'{winner} has won!\n')
+
+    def player_win(self):
+        self.declare_winner('Player')
+        self.player.win_bet()
 
     def dealer_win(self):
-        self.game_on = False
-        print('\n****************\n')
-        print('Final Hands:\n')
-        self.dealer.show_all()
-        self.player.show_all()
-        print('Final Scores:\n')
-        print(f'Dealer: {self.dealer.get_score()}')
-        print(f'Player: {self.player.get_score()}\n')
-        print('Dealer has won!\n')
+        self.declare_winner('Dealer')
+        self.player.lose_bet()
