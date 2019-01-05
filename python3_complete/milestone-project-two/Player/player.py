@@ -36,3 +36,6 @@ class Player:
             print(f'Card {index}:')
             print(f'{card.rank} of {card.suit}')
         print('================\n')
+
+    def reset_hand(self):
+        self.hand = Hand()

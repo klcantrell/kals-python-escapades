@@ -1,6 +1,6 @@
 class Chips:
     ATTRIBUTES = ['buy_in', 'place_bet', 'win_bet',
-                  'lose_bet', 'reset_bet', 'is_bet_valid']
+                  'lose_bet', 'reset_bet', 'is_bet_valid', 'no_chips']
 
     def __init__(self):
         self.total = 0
@@ -17,6 +17,9 @@ class Chips:
 
     def reset_bet(self):
         self.bet = 0
+
+    def no_chips(self):
+        return self.total == 0
 
     def win_bet(self):
         self.total += self.bet

@@ -10,15 +10,24 @@ class Game:
         self.dealer = CpuPlayer('Dealer')
         self.game_on = True
 
-    def run(self):
+    def run(self, replay=False):
         player_turn = True
         dealer_limit_reached = False
 
-        if self.will_player_play():
-            self.ask_for_buy_in()
-            self.ask_for_bet()
+        if replay:
+            if self.player.no_chips() and self.will_player_play():
+                self.ask_for_buy_in()
+                self.ask_for_bet()
+            elif not self.player.no_chips():
+                self.ask_for_bet()
+            else:
+                self.game_on = False
         else:
-            self.game_on = False
+            if self.will_player_play():
+                self.ask_for_buy_in()
+                self.ask_for_bet()
+            else:
+                self.game_on = False
 
         if self.game_on:
             self.deck.shuffle()
@@ -67,7 +76,13 @@ class Game:
                 self.player_win()
             else:
                 self.dealer_win()
-        print('Thanks for playing!\n')
+
+        player_quit = not self.game_on and player_turn
+        if not player_quit and self.ask_for_replay():
+            self.reset_for_replay()
+            self.run(replay=True)
+        else:
+            print('\nThanks for playing!\n')
 
     def will_player_play(self):
         valid_choice = False
@@ -78,7 +93,7 @@ class Game:
                 print('\nPlease enter either "y" or "n"\n')
             else:
                 valid_choice = True
-        return True if choice == 'y' else False
+        return choice == 'y'
 
     def ask_for_buy_in(self):
         valid_choice = False
@@ -105,6 +120,22 @@ class Game:
             except:
                 print('\nYou must provide a number')
 
+    def ask_for_replay(self):
+        valid_choice = False
+        while not valid_choice:
+            replay = input('\nPlay again? (y or n)  ')
+            if replay != 'y' and replay != 'n':
+                print('Please enter either a "y" or "n"')
+            else:
+                valid_choice = True
+        return replay == 'y'
+
+    def reset_for_replay(self):
+        self.game_on = True
+        self.deck = Deck()
+        self.player.reset_hand()
+        self.dealer.reset_hand()
+
     def will_player_hit(self):
         valid_choice = False
         while not valid_choice:
@@ -114,7 +145,7 @@ class Game:
             else:
                 print('\n')
                 valid_choice = True
-        return True if choice == 'y' else False
+        return choice == 'y'
 
     def declare_winner(self, winner):
         self.game_on = False
@@ -125,7 +156,7 @@ class Game:
         print('Final Scores:\n')
         print(f'Dealer: {self.dealer.get_score()}')
         print(f'Player: {self.player.get_score()}\n')
-        print(f'{winner} has won!\n')
+        print(f'{winner} has won!')
 
     def player_win(self):
         self.declare_winner('Player')
