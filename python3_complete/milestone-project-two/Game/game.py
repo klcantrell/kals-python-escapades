@@ -74,6 +74,8 @@ class Game:
             dealer_score = self.dealer.get_score()
             if player_score > dealer_score:
                 self.player_win()
+            elif player_score == dealer_score:
+                self.push()
             else:
                 self.dealer_win()
 
@@ -147,7 +149,7 @@ class Game:
                 valid_choice = True
         return choice == 'y'
 
-    def declare_winner(self, winner):
+    def declare_winner(self, winner=None):
         self.game_on = False
         print('\n****************\n')
         print('Final Hands:\n')
@@ -156,7 +158,10 @@ class Game:
         print('Final Scores:\n')
         print(f'Dealer: {self.dealer.get_score()}')
         print(f'Player: {self.player.get_score()}\n')
-        print(f'{winner} has won!')
+        if winner == None:
+            print('Push!')
+        else:
+            print(f'{winner} has won!')
 
     def player_win(self):
         self.declare_winner('Player')
@@ -164,4 +169,8 @@ class Game:
 
     def dealer_win(self):
         self.declare_winner('Dealer')
+        self.player.lose_bet()
+
+    def push(self):
+        self.declare_winner(winner=None)
         self.player.lose_bet()
