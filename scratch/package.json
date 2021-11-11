@@ -1,0 +1,15 @@
+{
+  "name": "scratch",
+  "version": "1.0.0",
+  "description": "Pyright linter",
+  "main": "index.js",
+  "scripts": {
+    "pyright": "pyright --project pyrightconfig.json"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "pyright": "^1.1.186"
+  }
+}

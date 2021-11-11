@@ -1,0 +1,9 @@
+{
+  "include": [
+    "play_with_pattern_matching_and_type_hints.py"
+  ],
+  "pythonVersion": "3.10",
+  "strict": [
+    "play_with_pattern_matching_and_type_hints.py"
+  ]
+}
